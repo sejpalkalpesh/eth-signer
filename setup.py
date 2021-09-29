@@ -43,7 +43,7 @@ with open('./README.md') as readme:
     long_description = readme.read()
 
 setup(
-    name='eth-sign',
+    name='eth-signer',
     # *IMPORTANT*: Don't manually change the version here. Use `make bump`, as described in readme
     version='0.1.0',
     description="""A Python library for transection signing using AWS Key Management Service.""",
