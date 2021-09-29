@@ -3,11 +3,11 @@ A Python library for transection signing using AWS Key Management Service.
 
 ## Dependencies
 
-- Python 3.5+
+- Python 3.6+
 
 ## QuickStart
 
-This Package is available on PyPI. Install via pip as:
+This Package is available on [PyPI](https://pypi.org/project/eth-signer/). Install via pip as:
 
 ```sh
   pip install eth-signer
@@ -48,3 +48,30 @@ web3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
 - Support for EIP-2718 (Typed Transaction) and EIP-2939 (Access List Transaction)
 - Support for EIP-1559 (Dynamic Fee Transaction)
+
+
+### Contributors
+ 
+* [Kalpesh Sejpal](https://github.com/sejpalkalpesh/)
+* [Medium Article from Lucas Henning](https://luhenning.medium.com/the-dark-side-of-the-elliptic-curve-signing-ethereum-transactions-with-aws-kms-in-javascript-83610d9a6f81)
+
+### Runtime dependencies
+The distributed eth-signer contains software from the following projects from PyPi:
+
+* eth-utils
+* eth-typing
+* hexbytes
+* eth-rlp
+* pycryptodome
+* boto3
+* flake8
+* isort
+* mypy
+* Sphinx
+* sphinx_rtd_theme
+* towncrier
+* bumpversion
+* setuptools
+* tox
+* twine
+
