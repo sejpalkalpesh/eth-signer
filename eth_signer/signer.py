@@ -7,7 +7,7 @@ from Crypto.Util.asn1 import (DerBitString, DerInteger,  # noqa: F401
                               DerSequence)
 from cytoolz import dissoc
 from eth_keys.datatypes import (PublicKey, Signature,
-                               )
+                                )
 from eth_utils.curried import is_string, keccak, to_bytes
 from hexbytes import HexBytes
 
@@ -32,7 +32,8 @@ class AWSKMSKey(BaseAccount):
         >>> my_local_account.pub_key # doctest: +SKIP
         b"\x01\x23..."
     """
-    def __init__(self, kms_client, key_id):
+
+    def __init__(self, kms_client: botocore.client.KMS, key_id: str):
         """
         Initialize a new account with the the given AWS KMS key pair.
         :param botocore.client.KMS kms_client: AWS KMS client object
@@ -62,7 +63,7 @@ class AWSKMSKey(BaseAccount):
         """kms_client is `botocore.client.KMS` object"""
         return self._kms_client
 
-    def get_pub_key_from_key_id(self):
+    def get_pub_key_from_key_id(self) -> bytes:
         pub_key_info = self._kms_client.get_public_key(KeyId=self._key_id)
         if pub_key_info['KeySpec'] == 'ECC_SECG_P256K1' and \
                 pub_key_info['KeyUsage'] == 'SIGN_VERIFY' and \
@@ -70,9 +71,9 @@ class AWSKMSKey(BaseAccount):
             return self.pub_key_from_der(pub_key_info['PublicKey'])
         else:
             raise TypeError('Invalid Key Type')
-        
 
-    def pub_key_from_der(self, der: bytes) -> bytes:
+    @staticmethod
+    def pub_key_from_der(der: bytes) -> bytes:
         der_seq = DerSequence()
         der_seq.decode(der)
         pub_key = DerBitString()
@@ -98,29 +99,29 @@ class AWSKMSKey(BaseAccount):
     def sign_msg_hash(self, message_hash: HexBytes) -> Signature:
         return self.sign(message_hash)
 
-    def signHash(self, message_hash):
+    def signHash(self, message_hash) -> Tuple[int, int, int, bytes]:
         (v_raw, r, s) = self.sign(self, message_hash).vrs
         v = to_eth_v(v_raw)
         eth_signature_bytes = to_bytes32(r) + to_bytes32(s) + to_bytes(v)
-        return (v, r, s, eth_signature_bytes)
+        return v, r, s, eth_signature_bytes
 
-    def sign_message(self, signable_message: SignableMessage):
+    def sign_message(self, signable_msg: SignableMessage) -> Tuple[int, int, int, bytes]:
         """
         Generate a string with the encrypted key.
         This uses the same structure as in
         :meth:`~eth_signer.signer.AWSKMSKey.sign_message`.
         """
-        message_hash = _hash_eip191_message(signable_message)
+        message_hash = _hash_eip191_message(signable_msg)
         return self.signHash(self, message_hash)
 
-    def signTransaction(self, transaction_dict):
+    def signTransaction(self, transaction_dict: dict) -> SignedTransaction:
         warnings.warn(
             "signTransaction is deprecated in favor of sign_transaction",
             category=DeprecationWarning,
         )
         return self.sign_transaction(transaction_dict)
 
-    def sign_transaction(self, transaction_dict):
+    def sign_transaction(self, transaction_dict: dict) -> SignedTransaction:
         """
         Sign a transaction using a AWS KMS Key .
         It produces signature details and the hex-encoded transaction suitable for broadcast using
