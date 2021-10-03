@@ -2,6 +2,7 @@ import warnings
 from collections.abc import Mapping  # noqa: F401
 from typing import Tuple  # noqa: F401
 
+import boto3  # noqa: F401
 import botocore  # noqa: F401
 from Crypto.Util.asn1 import (DerBitString, DerInteger,  # noqa: F401
                               DerSequence)
