@@ -16,7 +16,7 @@ def ecdsa_to_signature(hash: bytes, sign: bytes, address: str) -> Signature:
     account = Account()
     if account._recover_hash(hash, vrs=(27, r, s)) == address:
         return Signature(vrs=(0, r, s))
-    elif account._recover_hash(hash, vrs=(27, r, s)) == address:
+    elif account._recover_hash(hash, vrs=(28, r, s)) == address:
         return Signature(vrs=(1, r, s))
     else:
         raise ValueError("v %r is invalid, must be one of: 0, 1, 27, 28, 35+")
