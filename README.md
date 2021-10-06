@@ -79,8 +79,7 @@ tx_obj = {
     }
 
 signed_tx = AWSKMSKey.sign_transaction(kms_signer, transaction_dict = tx_obj)
-tx_hash = signed_tx.hash
-web3.eth.send_raw_transaction(signed_tx.rawTransaction)
+tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
 ```
 Output:
 `HexBytes('0x826a52e59431a4be8780807cdd09da01d0dbbb00848fd7c9dff8383869c7372c')`
