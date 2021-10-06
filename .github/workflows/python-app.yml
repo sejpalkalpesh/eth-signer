@@ -28,4 +28,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Install dependencies and Build
       run: |
-        if [ -f setup.py ]; then python3 setup.py bdist_wheel; fi
+        if [ -f setup.py ]; then python3 setup.py build; fi
