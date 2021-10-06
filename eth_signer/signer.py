@@ -34,7 +34,7 @@ class AWSKMSKey(BaseAccount):
         b"\x01\x23..."
     """
 
-    def __init__(self, kms_client: Any, key_id: str):
+    def __init__(self, kms_client, key_id: str):
         """
         Initialize a new account with the the given AWS KMS key pair.
         :param botocore.client.KMS kms_client: AWS KMS client object
