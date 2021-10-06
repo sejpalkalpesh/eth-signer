@@ -21,7 +21,7 @@ In the following example, the Basic use of `eth-signer` with `boto3` has been gi
 
 ```python
 import boto3
-from eth_signer import AWSKMSKey
+from eth_signer.signer import AWSKMSKey
 from web3 import Web3
 
 # Get a kms_client Object From boto3
