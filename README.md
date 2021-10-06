@@ -19,6 +19,11 @@ This Package is available on [PyPI](https://pypi.org/project/eth-signer/). Insta
 
 In the following example, the Basic use of `eth-signer` with `boto3` has been given.
 
+Step - 1 :  Install required dependencies 
+```bash 
+$ pip3 install boto3 eth-signer web3
+```
+Step - 2 : Create a new key pair using boto3 ( Optional )
 ```python
 import boto3
 from eth_signer.signer import AWSKMSKey
@@ -37,28 +42,50 @@ new_key = kms.create_key(
 )
 
 # Use KekId of newly generated key pair for AWSKMSKey Object
-
 key_id = new_key['KeyMetadata']['KeyId']
 kms_signer = AWSKMSKey(kms_client, key_id)
 
-web3 = Web3(Web3.HTTPProvider('NODE URL'))
-contract = web3.eth.contract(address='TOKEN_ADDRESS', abi=ABI)
+web3 = Web3(Web3.HTTPProvider('https://ropsten.infura.io/v3/<PROJECT_ID>'))
+
+# Print Key ID and Eth address
+print("KeyId: ", key_id)
+print("Eth Address: ", kms_signer.address)
+```
+Step - 3 : Send a new transaction using web3, boto3 and eth-signer
+```python
+import boto3
+from eth_signer.signer import AWSKMSKey
+from web3 import Web3
+
+# Get a kms_client Object From boto3
+kms_client = boto3.client('kms', 'us-east-1')
+
+# User a KeyId of the AWS KMS Key
+key_id = 'af8929db-010c-4476-00X0-0X00000X00X0'
+kms_signer = AWSKMSKey(kms_client, key_id)
+
+web3 = Web3(Web3.HTTPProvider('https://ropsten.infura.io/v3/<PROJECT_ID>'))
 nonce = web3.eth.get_transaction_count(kms_signer.address)
 
-tx_obj = contract.functions.function_name().buildTransaction(
-     {
-          "nonce": nonce,
-          "from": kms_signer.address,
-     }
-)
+print(web3.eth.getBalance(kms_signer.address))
+# build a transaction in a dictionary
+tx_obj = {
+        "nonce": nonce,
+        "from": kms_signer.address,
+        "to": '0xBe0745cF5b82aB1de6fB1CEd849081BE06d9b3be',
+        "value": web3.toWei(0.01, "ether"),
+        "gas": 200000,
+        "gasPrice": web3.toWei("50", "gwei"),
+    }
 
-signed_tx = AWSKMSKey.sign_transaction(tx_obj)
+signed_tx = AWSKMSKey.sign_transaction(kms_signer, transaction_dict = tx_obj)
 tx_hash = signed_tx.hash
 web3.eth.send_raw_transaction(signed_tx.rawTransaction)
-
 ```
+Output:
+`HexBytes('0x826a52e59431a4be8780807cdd09da01d0dbbb00848fd7c9dff8383869c7372c')`
 
-
+Transaction on [etherscan.io](https://ropsten.etherscan.io/tx/0x826a52e59431a4be8780807cdd09da01d0dbbb00848fd7c9dff8383869c7372c) 
 ### Features
 
 - Support for Ethereum Transaction and Message Signing using AWS Key Management Service  
