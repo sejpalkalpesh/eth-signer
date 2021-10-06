@@ -14,7 +14,7 @@ extras_require = {
         "boto3>=1.18.42,<1.19.0",
     ],
     'test': [
-        "eth-tester[py-evm]==v0.5.0-beta.4",
+        "pytest==5.4.1",
     ],
     'lint': [
         "flake8==3.8.3",
