@@ -52,6 +52,7 @@ print("KeyId: ", key_id)
 print("Eth Address: ", kms_signer.address)
 ```
 Step - 3 : Send a new transaction using web3, boto3 and eth-signer
+> Example: Transfer 0.01 ETH from AWS KMS managed Ethereum Account to another Ethereum Account. ( Please, do make you have sufficient balance in Account before executing the example code.)
 ```python
 import boto3
 from eth_signer.signer import AWSKMSKey
