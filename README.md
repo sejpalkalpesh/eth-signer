@@ -78,7 +78,7 @@ tx_obj = {
         "gasPrice": web3.toWei("50", "gwei"),
     }
 
-signed_tx = AWSKMSKey.sign_transaction(kms_signer, transaction_dict = tx_obj)
+signed_tx = kms_signer.sign_transaction(tx_obj)
 tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
 ```
 Output:
