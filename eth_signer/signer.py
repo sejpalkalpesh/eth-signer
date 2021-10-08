@@ -101,7 +101,7 @@ class AWSKMSKey(BaseAccount):
     def sign_msg_hash(self, message_hash: HexBytes) -> Signature:
         return self.sign(message_hash)
 
-    def signHash(self, message_hash) -> Tuple[int, int, int, bytes]:
+    def signHash(self, message_hash) -> SignedMessage:
         (v_raw, r, s) = self.sign(message_hash).vrs
         v = to_eth_v(v_raw)
         eth_signature_bytes = to_bytes32(r) + to_bytes32(s) + to_bytes(v)
@@ -113,7 +113,7 @@ class AWSKMSKey(BaseAccount):
             signature=HexBytes(eth_signature_bytes)
         )
 
-    def sign_message(self, signable_msg: SignableMessage) -> Tuple[int, int, int, bytes]:
+    def sign_message(self, signable_msg: SignableMessage) -> SignedMessage:
         """
         Generate a string with the encrypted key.
         This uses the same structure as in
