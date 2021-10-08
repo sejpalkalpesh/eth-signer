@@ -1,4 +1,9 @@
 # eth-signer
+[![PyPI](https://img.shields.io/pypi/v/eth-signer)](https://pypi.org/project/eth-signer/)
+[![PyPI - License](https://img.shields.io/pypi/l/eth-signer)](https://github.com/sejpalkalpesh/eth-signer/blob/main/LICENSE)
+[![Downloads](https://pepy.tech/badge/eth-signer/week)](https://pepy.tech/project/eth-signer)
+[![eth-signer workflow](https://github.com/sejpalkalpesh/eth-signer/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/sejpalkalpesh/eth-signer/actions/workflows/python-app.yml)
+
 A Python library for transection signing using AWS Key Management Service.
 
 ## Dependencies
