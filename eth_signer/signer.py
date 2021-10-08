@@ -15,7 +15,8 @@ from hexbytes import HexBytes
 from eth_account._utils.signing import hash_of_signed_transaction  # noqa: F401
 from eth_account._utils.signing import (sign_transaction_dict, to_bytes32,
                                         to_eth_v)
-from eth_account.datastructures import SignedTransaction
+from eth_account.datastructures import (SignedTransaction, SignedMessage,
+                                        )
 from eth_account.messages import SignableMessage, _hash_eip191_message
 from eth_account.signers.base import BaseAccount  # noqa: F401
 from eth_signer.utils.ecdsa import ecdsa_to_signature  # noqa: F401
@@ -101,10 +102,16 @@ class AWSKMSKey(BaseAccount):
         return self.sign(message_hash)
 
     def signHash(self, message_hash) -> Tuple[int, int, int, bytes]:
-        (v_raw, r, s) = self.sign(self, message_hash).vrs
+        (v_raw, r, s) = self.sign(message_hash).vrs
         v = to_eth_v(v_raw)
         eth_signature_bytes = to_bytes32(r) + to_bytes32(s) + to_bytes(v)
-        return v, r, s, eth_signature_bytes
+        return SignedMessage(
+            messageHash= HexBytes(message_hash),
+            r=r,
+            s=s,
+            v=v,
+            signature=HexBytes(eth_signature_bytes)
+        )
 
     def sign_message(self, signable_msg: SignableMessage) -> Tuple[int, int, int, bytes]:
         """
@@ -113,7 +120,7 @@ class AWSKMSKey(BaseAccount):
         :meth:`~eth_signer.signer.AWSKMSKey.sign_message`.
         """
         message_hash = _hash_eip191_message(signable_msg)
-        return self.signHash(self, message_hash)
+        return self.signHash(message_hash)
 
     def signTransaction(self, transaction_dict: dict) -> SignedTransaction:
         warnings.warn(
