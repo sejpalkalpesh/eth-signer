@@ -45,14 +45,17 @@ new_key = kms.create_key(
 key_id = new_key['KeyMetadata']['KeyId']
 kms_signer = AWSKMSKey(kms_client, key_id)
 
-web3 = Web3(Web3.HTTPProvider('https://ropsten.infura.io/v3/<PROJECT_ID>'))
-
 # Print Key ID and Eth address
 print("KeyId: ", key_id)
 print("Eth Address: ", kms_signer.address)
 ```
+Output:
+```python
+KeyId: af8929db-010c-4476-00X0-0X00000X00X0
+Eth Address: 0x40532E26c7100D72ee1CF91Ed65b44A4aEAC2b0f
+```
 Step - 3 : Send a new transaction using web3, boto3 and eth-signer
-> Example: Transfer 0.01 ETH from AWS KMS managed Ethereum Account to another Ethereum Account. ( Please, do make you have sufficient balance in Account before executing the example code.)
+> Example 1: Transfer 0.01 ETH from AWS KMS managed Ethereum Account to another Ethereum Account. ( Please, do make you have sufficient balance in Account before executing the example code.)
 ```python
 import boto3
 from eth_signer.signer import AWSKMSKey
@@ -81,11 +84,50 @@ tx_obj = {
 
 signed_tx = kms_signer.sign_transaction(tx_obj)
 tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
+print(tx_hash)
 ```
 Output:
-`HexBytes('0x826a52e59431a4be8780807cdd09da01d0dbbb00848fd7c9dff8383869c7372c')`
-
+```python
+34750000000000000
+HexBytes('0x826a52e59431a4be8780807cdd09da01d0dbbb00848fd7c9dff8383869c7372c')
+```
 Transaction on [etherscan.io](https://ropsten.etherscan.io/tx/0x826a52e59431a4be8780807cdd09da01d0dbbb00848fd7c9dff8383869c7372c) 
+
+
+> Example 2 : Sign and Verify a Message
+```python
+import boto3
+from eth_account.messages import encode_defunct
+from web3.auto import w3
+
+# Get a kms_client Object From boto3
+kms_client = boto3.client('kms', 'us-east-1')
+
+# User a KeyId of the AWS KMS Key
+key_id = 'af8929db-010c-4476-00X0-0X00000X00X0'
+kms_signer = AWSKMSKey(kms_client, key_id)
+
+msg = "From eth-signer"
+message = encode_defunct(text=msg)
+
+# Sign a Message
+signed_message = kms_signer.sign_message(message)
+# Recover Eth address from original message and Signature
+eth_address = w3.eth.account.recover_message(message, signature=signed_message.signature)
+print("Eth Address: ", eth_address)
+
+# Recover Eth address from signed message
+eth_address = w3.eth.account.recoverHash(signed_message.messageHash, signature=signed_message.signature)
+print("Eth Address: ", eth_address)
+
+```
+Output:
+```python
+Eth Address: 0x40532E26c7100D72ee1CF91Ed65b44A4aEAC2b0f
+Eth Address: 0x40532E26c7100D72ee1CF91Ed65b44A4aEAC2b0f
+```
+
+
 ### Features
 
 - Support for Ethereum Transaction and Message Signing using AWS Key Management Service  
