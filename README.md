@@ -89,7 +89,7 @@ tx_obj = {
 
 signed_tx = kms_signer.sign_transaction(tx_obj)
 tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
-print("https://ropsten.etherscan.io/tx/",tx_hash.hex())
+print("https://ropsten.etherscan.io/tx/", tx_hash.hex())
 ```
 Output:
 ```python
