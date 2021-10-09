@@ -4,12 +4,7 @@ from setuptools import find_packages, setup
 
 extras_require = {
     'eth-signer':[
-        "eth-utils>=1.8.2,<2.0.0",
-        "eth-typing>=2.2.1,<3.0.0",
-        "hexbytes>=0.1.0,<1",
-        "eth-keys>=0.3.1",
-        "eth_account>=0.5.5"
-        "eth-rlp>=0.1.2,<2",
+        "eth_account>=0.5.5",
         "pycryptodome>=3.6.6,<4",
         "boto3>=1.18.42,<1.19.0",
     ],
