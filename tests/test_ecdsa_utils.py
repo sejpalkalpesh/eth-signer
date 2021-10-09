@@ -1,6 +1,5 @@
 import pytest
 from eth_keys.datatypes import Signature
-from eth_utils import ValidationError
 from eth_keys.exceptions import BadSignature
 from eth_signer.utils.ecdsa import ecdsa_to_signature
 
