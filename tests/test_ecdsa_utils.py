@@ -1,6 +1,8 @@
 import pytest
-from eth_signer.utils.ecdsa import ecdsa_to_signature
 from eth_keys.datatypes import Signature
+from eth_utils import ValidationError
+from eth_keys.exceptions import BadSignature
+from eth_signer.utils.ecdsa import ecdsa_to_signature
 
 
 @pytest.mark.parametrize(
@@ -28,7 +30,7 @@ from eth_keys.datatypes import Signature
 )
 def test_ecdsa_to_eth_sign(hash, sign, address, signature: Signature, validation_error):
     if validation_error:
-        with pytest.raises(ValueError("v %r is invalid, must be one of: 0, 1, 27, 28, 35+")):
+        with pytest.raises((ValueError, BadSignature)):
             ecdsa_to_signature(hash, sign, address)
     else:
         assert ecdsa_to_signature(hash, sign, address) == signature
