@@ -12,7 +12,7 @@ A Python library for transaction signing using AWS Key Management Service.
 
 ## QuickStart
 
-This Package is available on [PyPI](https://pypi.org/project/eth-signer/). Install via pip as:
+`eth-signer` is available on [PyPI](https://pypi.org/project/eth-signer/). Install via pip as:
 
 ```sh
   pip install eth-signer
@@ -28,7 +28,7 @@ Step - 1 :  Install required dependencies
 ```bash 
 $ pip3 install boto3 eth-signer web3
 ```
-Step - 2 : Create a new key pair using boto3 ( Optional )
+Step - 2: Create a new key pair using boto3 ( Optional )
 ```python
 import boto3
 from eth_signer.signer import AWSKMSKey
@@ -59,8 +59,8 @@ Output:
 KeyId: af8929db-010c-4476-00X0-0X00000X00X0
 Eth Address: 0x40532E26c7100D72ee1CF91Ed65b44A4aEAC2b0f
 ```
-Step - 3 : Send a new transaction using web3, boto3 and eth-signer
-> Example 1: Transfer 0.01 ETH from AWS KMS managed Ethereum Account to another Ethereum Account. ( Please, do make you have sufficient balance in Account before executing the example code.)
+Step - 3: Send a new transaction using web3, boto3, and eth-signer
+> Example 1: Transfer 0.01 ETH from AWS KMS managed Ethereum Account to another Ethereum Account. ( Please, do make you have sufficient balance in the Account before executing the example code.)
 ```python
 import boto3
 from eth_signer.signer import AWSKMSKey
@@ -98,7 +98,7 @@ https://ropsten.etherscan.io/tx/0x826a52e59431a4be8780807cdd09da01d0dbbb00848fd7
 ```
 Transaction on [etherscan.io](https://ropsten.etherscan.io/tx/0x826a52e59431a4be8780807cdd09da01d0dbbb00848fd7c9dff8383869c7372c) 
 
-> Example 2: Transfer 0.01 ETH from AWS KMS managed Ethereum Account to another Ethereum Account. ( Please, do make you have sufficient balance in Account before executing the example code.) (Using EIP-1559 Dynamic fee transaction)
+> Example 2: Transfer 0.01 ETH from AWS KMS managed Ethereum Account to another Ethereum Account. ( Please, do make you have sufficient balance in the Account before executing the example code.) (Using EIP-1559 Dynamic fee transaction)
 ```python
 import boto3
 from eth_signer.signer import AWSKMSKey
@@ -142,7 +142,7 @@ https://ropsten.etherscan.io/tx/0xb7248612afb1b8ff2388b9ddfed6127c8b8d4e6dcc6098
 Transaction on [etherscan.io](https://ropsten.etherscan.io/tx/0xb7248612afb1b8ff2388b9ddfed6127c8b8d4e6dcc609816fd421cd6c1e8b3f1) 
 
 
-> Example 3 : Sign and Verify a Message
+> Example 3: Sign and Verify a Message
 ```python
 import boto3
 from eth_account.messages import encode_defunct
@@ -179,6 +179,7 @@ Eth Address: 0x40532E26c7100D72ee1CF91Ed65b44A4aEAC2b0f
 ### Features
 
 - Support for Ethereum Transaction and Message Signing using AWS Key Management Service  
+- It supports all types of Transactions and message signing supported by the eth-account package.
 
 ### Contributors
  
@@ -186,7 +187,7 @@ Eth Address: 0x40532E26c7100D72ee1CF91Ed65b44A4aEAC2b0f
 * [Medium Article from Lucas Henning](https://luhenning.medium.com/the-dark-side-of-the-elliptic-curve-signing-ethereum-transactions-with-aws-kms-in-javascript-83610d9a6f81)
 
 ### Runtime dependencies
-The distributed eth-signer contains software from the following projects from PyPi:
+The distributed eth-signer contains software from the following projects from PyPI:
 
 * eth-utils
 * eth-typing
@@ -204,4 +205,3 @@ The distributed eth-signer contains software from the following projects from Py
 * setuptools
 * tox
 * twine
-
