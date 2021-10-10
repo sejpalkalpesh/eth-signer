@@ -98,8 +98,51 @@ https://ropsten.etherscan.io/tx/0x826a52e59431a4be8780807cdd09da01d0dbbb00848fd7
 ```
 Transaction on [etherscan.io](https://ropsten.etherscan.io/tx/0x826a52e59431a4be8780807cdd09da01d0dbbb00848fd7c9dff8383869c7372c) 
 
+> Example 2: Transfer 0.01 ETH from AWS KMS managed Ethereum Account to another Ethereum Account. ( Please, do make you have sufficient balance in Account before executing the example code.) (Using EIP-1559 Dynamic fee transaction)
+```python
+import boto3
+from eth_signer.signer import AWSKMSKey
+from web3 import Web3
 
-> Example 2 : Sign and Verify a Message
+# Get a kms_client Object From boto3
+kms_client = boto3.client('kms', 'us-east-1')
+
+# User a KeyId of the AWS KMS Key
+key_id = 'af8929db-010c-4476-00X0-0X00000X00X0'
+kms_signer = AWSKMSKey(kms_client, key_id)
+
+web3 = Web3(Web3.HTTPProvider('https://ropsten.infura.io/v3/<PROJECT_ID>'))
+nonce = web3.eth.get_transaction_count(kms_signer.address)
+
+print(web3.eth.getBalance(kms_signer.address))
+# build a transaction in a dictionary
+tx_obj = {
+    "nonce": nonce,
+    "from": kms_signer.address,
+    "to": "0xBe0745cF5b82aB1de6fB1CEd849081BE06d9b3be",
+    "value": web3.toWei(12, "wei"),
+    "gas": 25000,
+    "maxFeePerGas": web3.toWei(5, "gwei"),
+    "maxPriorityFeePerGas": web3.toWei(5, "gwei"),
+    "type": "0x2",
+    # ChainId "0x3" for ropsten chain 
+    "chainId": "0x3",
+}
+
+
+signed_tx = kms_signer.sign_transaction(tx_obj)
+tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
+print("https://ropsten.etherscan.io/tx/" + tx_hash.hex())
+```
+Output:
+```python
+34750000000000000
+https://ropsten.etherscan.io/tx/0xb7248612afb1b8ff2388b9ddfed6127c8b8d4e6dcc609816fd421cd6c1e8b3f1
+```
+Transaction on [etherscan.io](https://ropsten.etherscan.io/tx/0x826a52e59431a4be8780807cdd09da01d0dbbb00848fd7c9dff8383869c7372c) 
+
+
+> Example 3 : Sign and Verify a Message
 ```python
 import boto3
 from eth_account.messages import encode_defunct
