@@ -53,6 +53,10 @@ class AWSKMSKey(BaseAccount):
             )
 
     @property
+    def pub_key(self):
+        return self._pub_key
+
+    @property
     def address(self):
         return self._address
 
