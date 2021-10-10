@@ -26,8 +26,10 @@ In the following example, the Basic use of `eth-signer` with `boto3` has been gi
 
 Step - 1 :  Install required dependencies 
 ```bash 
-$ pip3 install boto3 eth-signer web3
+pip3 install boto3 eth-signer web3
 ```
+> Please, do configure [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html) before following step 2. 
+
 Step - 2: Create a new key pair using boto3 ( Optional )
 ```python
 import boto3
