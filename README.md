@@ -4,7 +4,7 @@
 [![Downloads](https://pepy.tech/badge/eth-signer/week)](https://pepy.tech/project/eth-signer)
 [![eth-signer workflow](https://github.com/sejpalkalpesh/eth-signer/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/sejpalkalpesh/eth-signer/actions/workflows/python-app.yml)
 
-A Python library for transection signing using AWS Key Management Service.
+A Python library for transaction signing using AWS Key Management Service.
 
 ## Dependencies
 
