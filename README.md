@@ -4,7 +4,17 @@
 [![Downloads](https://pepy.tech/badge/eth-signer/week)](https://pepy.tech/project/eth-signer)
 [![eth-signer workflow](https://github.com/sejpalkalpesh/eth-signer/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/sejpalkalpesh/eth-signer/actions/workflows/python-app.yml)
 
-A Python library for transaction signing using AWS Key Management Service.
+Eth-signer is A Python library for transection and message signing using Key Management Services such as AWS Key Management Service, Azure Key Vault, Vault by HashiCorp.
+
+
+## Features 
+
+- [x] Support for Ethereum Transaction and Message Signing using AWS Key Management Service  
+- [x] Support all types of Transactions and message signing supported by the eth-account package.
+- [ ] Support for Ethereum Transaction and Message Signing using Azure Key Vault
+- [ ] Support for Ethereum Transaction and Message Signing using Vault by HashiCorp
+- [ ] Support For signing Ethereum 2.0 Transaction and Message
+- [x] Support eth-signer in Mac OS 11.6 , Ubuntu 20.04 LTS and Windows 11 
 
 ## Dependencies
 
@@ -177,11 +187,6 @@ Eth Address: 0x40532E26c7100D72ee1CF91Ed65b44A4aEAC2b0f
 Eth Address: 0x40532E26c7100D72ee1CF91Ed65b44A4aEAC2b0f
 ```
 
-
-### Features
-
-- Support for Ethereum Transaction and Message Signing using AWS Key Management Service  
-- It supports all types of Transactions and message signing supported by the eth-account package.
 
 ### Contributors
  
