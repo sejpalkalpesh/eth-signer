@@ -12,7 +12,7 @@ Eth-signer is A Python library for transection and message signing using Key Man
 - [x] Support for Ethereum Transaction and Message Signing using AWS Key Management Service  
 - [x] Support all types of Transactions and message signing supported by the eth-account package.
 - [ ] Support for Ethereum Transaction and Message Signing using Azure Key Vault
-- [ ] Support for Ethereum Transaction and Message Signing using Vault by HashiCorp
+- [ ] Support for Ethereum Transaction and Message Signing using Vault by HashiCorp ( will wait till PR for secp256k1 support be accepted.)
 - [ ] Support For signing Ethereum 2.0 Transaction and Message
 - [x] Support eth-signer in Mac OS 11.6 , Ubuntu 20.04 LTS and Windows 11 
 
