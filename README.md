@@ -1,7 +1,7 @@
 # eth-signer
 [![PyPI](https://img.shields.io/pypi/v/eth-signer)](https://pypi.org/project/eth-signer/)
 [![PyPI - License](https://img.shields.io/pypi/l/eth-signer)](https://github.com/sejpalkalpesh/eth-signer/blob/main/LICENSE)
-[![Downloads](https://pepy.tech/badge/eth-signer/week)](https://pepy.tech/project/eth-signer)
+[![Downloads](https://pepy.tech/badge/eth-signer)](https://pepy.tech/project/eth-signer)
 [![eth-signer workflow](https://github.com/sejpalkalpesh/eth-signer/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/sejpalkalpesh/eth-signer/actions/workflows/python-app.yml)
 
 Eth-signer is A Python library for transection and message signing using Key Management Services such as AWS Key Management Service, Azure Key Vault, Vault by HashiCorp.
